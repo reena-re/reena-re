@@ -1,0 +1,380 @@
+Bro 👍 Here are 4 C# programs on classes and objects and 4 programs on method overloading. All programs accept input from the user, with no default input values.
+
+# Part 1: Classes and Objects — 4 Programs
+
+## 1. Student Details
+
+Create a `Student` class with data members and a method to display student details.
+
+```
+using System;
+
+class Student
+{
+    public int id;
+    public string name;
+    public string department;
+
+    public void Display()
+    {
+        Console.WriteLine("ID: " + id);
+        Console.WriteLine("Name: " + name);
+        Console.WriteLine("Department: " + department);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Student s = new Student();
+
+        Console.Write("Enter ID: ");
+        s.id = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter Name: ");
+        s.name = Console.ReadLine();
+
+        Console.Write("Enter Department: ");
+        s.department = Console.ReadLine();
+
+        s.Display();
+        Console.ReadLine();
+    }
+}
+```
+
+## 2. Employee Salary Calculation
+
+Create an `Employee` class and calculate the annual salary.
+
+```
+using System;
+
+class Employee
+{
+    public int id;
+    public string name;
+    public double salary;
+
+    public void Display()
+    {
+        Console.WriteLine("ID: " + id);
+        Console.WriteLine("Name: " + name);
+        Console.WriteLine("Monthly Salary: " + salary);
+        Console.WriteLine("Annual Salary: " + (salary * 12));
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Employee e = new Employee();
+
+        Console.Write("Enter ID: ");
+        e.id = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter Name: ");
+        e.name = Console.ReadLine();
+
+        Console.Write("Enter Monthly Salary: ");
+        e.salary = double.Parse(Console.ReadLine());
+
+        e.Display();
+        Console.ReadLine();
+    }
+}
+```
+
+## 3. Rectangle Area Using Class and Object
+
+```
+using System;
+
+class Rectangle
+{
+    public double length, breadth;
+
+    public double Area()
+    {
+        return length * breadth;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Rectangle r = new Rectangle();
+
+        Console.Write("Enter length: ");
+        r.length = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter breadth: ");
+        r.breadth = double.Parse(Console.ReadLine());
+
+        Console.WriteLine("Area = " + r.Area());
+        Console.ReadLine();
+    }
+}
+```
+
+## 4. Bank Account
+
+Deposit money and withdraw money using class methods.
+
+```
+using System;
+
+class Bank
+{
+    public double balance;
+
+    public void Deposit(double amount)
+    {
+        if (amount > 0)
+        {
+            balance += amount;
+            Console.WriteLine("Deposit successful");
+        }
+        else
+            Console.WriteLine("Invalid amount");
+    }
+
+    public void Withdraw(double amount)
+    {
+        if (amount > 0 && amount <= balance)
+        {
+            balance -= amount;
+            Console.WriteLine("Withdrawal successful");
+        }
+        else
+            Console.WriteLine("Insufficient balance or invalid amount");
+    }
+
+    public void Display()
+    {
+        Console.WriteLine("Balance = " + balance);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Bank b = new Bank();
+
+        Console.Write("Enter initial balance: ");
+        b.balance = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter deposit amount: ");
+        double d = double.Parse(Console.ReadLine());
+        b.Deposit(d);
+
+        Console.Write("Enter withdrawal amount: ");
+        double w = double.Parse(Console.ReadLine());
+        b.Withdraw(w);
+
+        b.Display();
+        Console.ReadLine();
+    }
+}
+```
+
+# Part 2: Method Overloading — 4 Programs
+
+Method overloading means defining multiple methods with the same name but different parameter lists.
+
+## 5. Add Two or Three Numbers
+
+The method name is `Add`, but the parameters differ.
+
+```
+using System;
+
+class Calculator
+{
+    public int Add(int a, int b)
+    {
+        return a + b;
+    }
+
+    public int Add(int a, int b, int c)
+    {
+        return a + b + c;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Calculator c = new Calculator();
+
+        Console.Write("Enter first number: ");
+        int a = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter second number: ");
+        int b = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter third number: ");
+        int d = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Sum of two = " + c.Add(a, b));
+        Console.WriteLine("Sum of three = " + c.Add(a, b, d));
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 6. Area of Square and Rectangle
+
+Same method name, different parameter counts.
+
+```
+using System;
+
+class Shape
+{
+    public double Area(double side)
+    {
+        return side * side;
+    }
+
+    public double Area(double length, double breadth)
+    {
+        return length * breadth;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Shape s = new Shape();
+
+        Console.Write("Enter square side: ");
+        double side = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter rectangle length: ");
+        double l = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter rectangle breadth: ");
+        double b = double.Parse(Console.ReadLine());
+
+        Console.WriteLine("Square area = " + s.Area(side));
+        Console.WriteLine("Rectangle area = " + s.Area(l, b));
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 7. Display Different Data Types
+
+The method name is `Display`, but the parameter types differ.
+
+```
+using System;
+
+class Details
+{
+    public void Display(int id)
+    {
+        Console.WriteLine("ID = " + id);
+    }
+
+    public void Display(string name)
+    {
+        Console.WriteLine("Name = " + name);
+    }
+
+    public void Display(double salary)
+    {
+        Console.WriteLine("Salary = " + salary);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Details d = new Details();
+
+        Console.Write("Enter ID: ");
+        int id = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter salary: ");
+        double salary = double.Parse(Console.ReadLine());
+
+        d.Display(id);
+        d.Display(name);
+        d.Display(salary);
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 8. Calculate Simple Interest with Overloaded Methods
+
+```
+using System;
+
+class Interest
+{
+    public double Calculate(double p, double r, double t)
+    {
+        return (p * r * t) / 100;
+    }
+
+    public double Calculate(double p, double r)
+    {
+        return (p * r) / 100;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Interest i = new Interest();
+
+        Console.Write("Enter principal: ");
+        double p = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter rate: ");
+        double r = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter time in years: ");
+        double t = double.Parse(Console.ReadLine());
+
+        Console.WriteLine("Interest for given time = " +
+                          i.Calculate(p, r, t));
+
+        Console.WriteLine("Interest for one year = " +
+                          i.Calculate(p, r));
+
+        Console.ReadLine();
+    }
+}
+```
+
+## Quick exam revision
+
+| Topic                | What to remember                       |
+| -------------------- | -------------------------------------- |
+| Class                | Blueprint for creating objects         |
+| Object               | Instance of a class                    |
+| Data members         | Variables inside a class               |
+| Methods              | Functions inside a class               |
+| Method overloading   | Same method name, different parameters |
+| Overloading by count | `Add(a, b)` and `Add(a, b, c)`         |
+| Overloading by type  | `Display(int)` and `Display(string)`   |
+
+Important: Method overloading cannot be achieved by changing only the return type. The parameter list must differ in number, type, or order.
