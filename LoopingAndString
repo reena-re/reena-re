@@ -1,0 +1,742 @@
+## 1. Check whether a number is positive, negative or zero
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a number: ");
+        int n = int.Parse(Console.ReadLine());
+
+        if (n > 0)
+            Console.WriteLine("Positive");
+        else if (n < 0)
+            Console.WriteLine("Negative");
+        else
+            Console.WriteLine("Zero");
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 2. Find the largest of three numbers
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter A: ");
+        int a = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter B: ");
+        int b = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter C: ");
+        int c = int.Parse(Console.ReadLine());
+
+        if (a >= b && a >= c)
+            Console.WriteLine("Largest = " + a);
+        else if (b >= c)
+            Console.WriteLine("Largest = " + b);
+        else
+            Console.WriteLine("Largest = " + c);
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 3. Check whether a year is a leap year
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter year: ");
+        int year = int.Parse(Console.ReadLine());
+
+        if (year % 400 == 0 ||
+            (year % 4 == 0 && year % 100 != 0))
+            Console.WriteLine("Leap Year");
+        else
+            Console.WriteLine("Not a Leap Year");
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 4. Menu-driven calculator using `switch`
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter first number: ");
+        double a = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter second number: ");
+        double b = double.Parse(Console.ReadLine());
+
+        Console.WriteLine("1.Add  2.Subtract");
+        Console.WriteLine("3.Multiply  4.Divide");
+        Console.Write("Enter choice: ");
+        int ch = int.Parse(Console.ReadLine());
+
+        switch (ch)
+        {
+            case 1:
+                Console.WriteLine(a + b);
+                break;
+            case 2:
+                Console.WriteLine(a - b);
+                break;
+            case 3:
+                Console.WriteLine(a * b);
+                break;
+            case 4:
+                if (b != 0)
+                    Console.WriteLine(a / b);
+                else
+                    Console.WriteLine("Cannot divide by zero");
+                break;
+            default:
+                Console.WriteLine("Invalid choice");
+                break;
+        }
+
+        Console.ReadLine();
+    }
+}
+```
+
+# Part 2: `for` loop programs
+
+## 5. Print multiplication table
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number: ");
+        int n = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter limit: ");
+        int limit = int.Parse(Console.ReadLine());
+
+        for (int i = 1; i <= limit; i++)
+            Console.WriteLine(n + " x " + i + " = " + (n * i));
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 6. Find factorial using `for`
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number: ");
+        int n = int.Parse(Console.ReadLine());
+
+        if (n < 0 || n > 20)
+        {
+            Console.WriteLine("Enter a number from 0 to 20");
+            return;
+        }
+
+        long fact = 1;
+
+        for (int i = 1; i <= n; i++)
+            fact *= i;
+
+        Console.WriteLine("Factorial = " + fact);
+        Console.ReadLine();
+    }
+}
+```
+
+## 7. Find the sum of even and odd numbers separately
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter limit: ");
+        int n = int.Parse(Console.ReadLine());
+
+        int even = 0, odd = 0;
+
+        for (int i = 1; i <= n; i++)
+        {
+            if (i % 2 == 0)
+                even += i;
+            else
+                odd += i;
+        }
+
+        Console.WriteLine("Even sum = " + even);
+        Console.WriteLine("Odd sum = " + odd);
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 8. Fibonacci series using `for`
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of terms: ");
+        int n = int.Parse(Console.ReadLine());
+
+        long a = 0, b = 1;
+
+        for (int i = 1; i <= n; i++)
+        {
+            Console.Write(a + " ");
+
+            long c = a + b;
+            a = b;
+            b = c;
+        }
+
+        Console.ReadLine();
+    }
+}
+```
+
+# Part 3: `while` loop programs
+
+## 9. Reverse a number using `while`
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number: ");
+        int n = int.Parse(Console.ReadLine());
+
+        long rev = 0;
+        long temp = Math.Abs((long)n);
+
+        while (temp > 0)
+        {
+            rev = rev * 10 + temp % 10;
+            temp /= 10;
+        }
+
+        if (n < 0)
+            rev = -rev;
+
+        Console.WriteLine("Reverse = " + rev);
+        Console.ReadLine();
+    }
+}
+```
+
+## 10. Find the sum of digits using `while`
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number: ");
+        long n = Math.Abs(long.Parse(Console.ReadLine()));
+
+        long sum = 0;
+
+        while (n > 0)
+        {
+            sum += n % 10;
+            n /= 10;
+        }
+
+        Console.WriteLine("Sum of digits = " + sum);
+        Console.ReadLine();
+    }
+}
+```
+
+## 11. Check palindrome number using `while`
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number: ");
+        int n = int.Parse(Console.ReadLine());
+
+        long temp = Math.Abs((long)n);
+        long original = temp, rev = 0;
+
+        while (temp > 0)
+        {
+            rev = rev * 10 + temp % 10;
+            temp /= 10;
+        }
+
+        if (n >= 0 && original == rev)
+            Console.WriteLine("Palindrome");
+        else
+            Console.WriteLine("Not Palindrome");
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 12. Count the digits in a number
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number: ");
+        long n = Math.Abs(long.Parse(Console.ReadLine()));
+
+        int count = 0;
+
+        do
+        {
+            count++;
+            n /= 10;
+        }
+        while (n > 0);
+
+        Console.WriteLine("Number of digits = " + count);
+        Console.ReadLine();
+    }
+}
+```
+
+# Part 4: `do-while` loop programs
+
+## 13. Print numbers from 1 to N
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter limit: ");
+        int n = int.Parse(Console.ReadLine());
+
+        int i = 1;
+
+        if (n >= 1)
+        {
+            do
+            {
+                Console.WriteLine(i);
+                i++;
+            }
+            while (i <= n);
+        }
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 14. Menu-driven calculator using `do-while`
+
+The menu repeats until the user chooses Exit.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int choice;
+
+        do
+        {
+            Console.WriteLine("1. Add");
+            Console.WriteLine("2. Subtract");
+            Console.WriteLine("3. Multiply");
+            Console.WriteLine("4. Exit");
+
+            Console.Write("Enter choice: ");
+            choice = int.Parse(Console.ReadLine());
+
+            if (choice >= 1 && choice <= 3)
+            {
+                Console.Write("Enter first number: ");
+                int a = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter second number: ");
+                int b = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Result = " + (a + b));
+                        break;
+                    case 2:
+                        Console.WriteLine("Result = " + (a - b));
+                        break;
+                    case 3:
+                        Console.WriteLine("Result = " + (a * b));
+                        break;
+                }
+            }
+            else if (choice != 4)
+            {
+                Console.WriteLine("Invalid choice");
+            }
+
+        } while (choice != 4);
+
+        Console.WriteLine("Program ended");
+        Console.ReadLine();
+    }
+}
+```
+
+## 15. Keep adding numbers until the user enters zero
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n, sum = 0;
+
+        do
+        {
+            Console.Write("Enter number (0 to stop): ");
+            n = int.Parse(Console.ReadLine());
+
+            sum += n;
+        }
+        while (n != 0);
+
+        Console.WriteLine("Total sum = " + sum);
+        Console.ReadLine();
+    }
+}
+```
+
+## 16. Guess the number using `while`
+
+The user enters the secret number first, then keeps guessing until it matches.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter secret number: ");
+        int secret = int.Parse(Console.ReadLine());
+
+        Console.Write("Guess the number: ");
+        int guess = int.Parse(Console.ReadLine());
+
+        while (guess != secret)
+        {
+            if (guess < secret)
+                Console.WriteLine("Too small");
+            else
+                Console.WriteLine("Too large");
+
+            Console.Write("Try again: ");
+            guess = int.Parse(Console.ReadLine());
+        }
+
+        Console.WriteLine("Correct!");
+        Console.ReadLine();
+    }
+}
+```
+
+# Part 5: String manipulation programs
+
+These are important for practical exams because they use `Length`, `Substring()`, `Replace()`, `ToUpper()`, `Split()` and loops.
+
+## 17. Reverse a string using `for`
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a string: ");
+        string s = Console.ReadLine();
+
+        string rev = "";
+
+        for (int i = s.Length - 1; i >= 0; i--)
+            rev += s[i];
+
+        Console.WriteLine("Reverse = " + rev);
+        Console.ReadLine();
+    }
+}
+```
+
+## 18. Check whether a string is a palindrome
+
+Example: `MADAM`
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a string: ");
+        string s = Console.ReadLine().ToLower();
+
+        string rev = "";
+
+        for (int i = s.Length - 1; i >= 0; i--)
+            rev += s[i];
+
+        if (s == rev)
+            Console.WriteLine("Palindrome");
+        else
+            Console.WriteLine("Not Palindrome");
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 19. Count vowels, consonants, digits and spaces
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a string: ");
+        string s = Console.ReadLine().ToLower();
+
+        int vowels = 0, consonants = 0;
+        int digits = 0, spaces = 0;
+
+        foreach (char c in s)
+        {
+            if ("aeiou".IndexOf(c) >= 0)
+                vowels++;
+            else if (c >= 'a' && c <= 'z')
+                consonants++;
+            else if (c >= '0' && c <= '9')
+                digits++;
+            else if (c == ' ')
+                spaces++;
+        }
+
+        Console.WriteLine("Vowels = " + vowels);
+        Console.WriteLine("Consonants = " + consonants);
+        Console.WriteLine("Digits = " + digits);
+        Console.WriteLine("Spaces = " + spaces);
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 20. Count the number of words in a string
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a sentence: ");
+        string s = Console.ReadLine().Trim();
+
+        int count = 0;
+
+        if (s.Length > 0)
+        {
+            string[] words = s.Split(
+                new char[] { ' ', '\t' },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            count = words.Length;
+        }
+
+        Console.WriteLine("Word count = " + count);
+        Console.ReadLine();
+    }
+}
+```
+
+## 21. Convert a string to uppercase and lowercase
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a string: ");
+        string s = Console.ReadLine();
+
+        Console.WriteLine("Uppercase = " + s.ToUpper());
+        Console.WriteLine("Lowercase = " + s.ToLower());
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 22. Replace a word in a sentence
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a sentence: ");
+        string s = Console.ReadLine();
+
+        Console.Write("Enter word to replace: ");
+        string oldWord = Console.ReadLine();
+
+        Console.Write("Enter new word: ");
+        string newWord = Console.ReadLine();
+
+        Console.WriteLine(
+            "Result = " + s.Replace(oldWord, newWord));
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 23. Count the occurrence of a character
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a string: ");
+        string s = Console.ReadLine();
+
+        Console.Write("Enter character: ");
+        char ch = char.Parse(Console.ReadLine());
+
+        int count = 0;
+
+        foreach (char c in s)
+        {
+            if (char.ToLower(c) == char.ToLower(ch))
+                count++;
+        }
+
+        Console.WriteLine("Occurrences = " + count);
+        Console.ReadLine();
+    }
+}
+```
+
+## 24. Remove spaces from a string
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a string: ");
+        string s = Console.ReadLine();
+
+        string result = s.Replace(" ", "");
+
+        Console.WriteLine("Without spaces = " + result);
+        Console.ReadLine();
+    }
+}
+```
+
+## 25. Compare two strings
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter first string: ");
+        string a = Console.ReadLine();
+
+        Console.Write("Enter second string: ");
+        string b = Console.ReadLine();
+
+        if (string.Equals(a, b,
+            StringComparison.OrdinalIgnoreCase))
+            Console.WriteLine("Strings are equal");
+        else
+            Console.WriteLine("Strings are not equal");
+
+        Console.ReadLine();
+    }
+}
+```
