@@ -1,0 +1,391 @@
+Bro 👍 Here are all C# string manipulation programs in one place. Every program gets input from the user, with no hardcoded input values. Each is a separate program for Visual Studio 2015.
+
+# C# String Manipulation — 15 Programs
+
+## 1. Reverse a String
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter string: ");
+        string s = Console.ReadLine();
+        string rev = "";
+
+        for (int i = s.Length - 1; i >= 0; i--)
+            rev += s[i];
+
+        Console.WriteLine("Reverse = " + rev);
+        Console.ReadLine();
+    }
+}
+```
+
+## 2. Check Palindrome String
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter string: ");
+        string s = Console.ReadLine().ToLower();
+        string rev = "";
+
+        for (int i = s.Length - 1; i >= 0; i--)
+            rev += s[i];
+
+        Console.WriteLine(s == rev ? "Palindrome" : "Not Palindrome");
+        Console.ReadLine();
+    }
+}
+```
+
+## 3. Count Vowels and Consonants
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter string: ");
+        string s = Console.ReadLine().ToLower();
+        int v = 0, c = 0;
+
+        foreach (char ch in s)
+        {
+            if (ch >= 'a' && ch <= 'z')
+            {
+                if ("aeiou".IndexOf(ch) >= 0)
+                    v++;
+                else
+                    c++;
+            }
+        }
+
+        Console.WriteLine("Vowels = " + v);
+        Console.WriteLine("Consonants = " + c);
+        Console.ReadLine();
+    }
+}
+```
+
+## 4. Count Words in a Sentence
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter sentence: ");
+        string s = Console.ReadLine().Trim();
+
+        string[] words = s.Split(
+            new char[] { ' ', '\t' },
+            StringSplitOptions.RemoveEmptyEntries);
+
+        Console.WriteLine("Word count = " + words.Length);
+        Console.ReadLine();
+    }
+}
+```
+
+## 5. Convert to Uppercase and Lowercase
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter string: ");
+        string s = Console.ReadLine();
+
+        Console.WriteLine("Uppercase = " + s.ToUpper());
+        Console.WriteLine("Lowercase = " + s.ToLower());
+        Console.ReadLine();
+    }
+}
+```
+
+## 6. Replace a Word in a Sentence
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter sentence: ");
+        string s = Console.ReadLine();
+
+        Console.Write("Enter old word: ");
+        string oldWord = Console.ReadLine();
+
+        Console.Write("Enter new word: ");
+        string newWord = Console.ReadLine();
+
+        Console.WriteLine(s.Replace(oldWord, newWord));
+        Console.ReadLine();
+    }
+}
+```
+
+## 7. Count Occurrences of a Character
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter string: ");
+        string s = Console.ReadLine();
+
+        Console.Write("Enter character: ");
+        char ch = char.Parse(Console.ReadLine());
+
+        int count = 0;
+
+        foreach (char c in s)
+        {
+            if (char.ToLower(c) == char.ToLower(ch))
+                count++;
+        }
+
+        Console.WriteLine("Occurrences = " + count);
+        Console.ReadLine();
+    }
+}
+```
+
+## 8. Remove Spaces from a String
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter string: ");
+        string s = Console.ReadLine();
+
+        Console.WriteLine(s.Replace(" ", ""));
+        Console.ReadLine();
+    }
+}
+```
+
+## 9. Compare Two Strings
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter first string: ");
+        string a = Console.ReadLine();
+
+        Console.Write("Enter second string: ");
+        string b = Console.ReadLine();
+
+        if (string.Equals(a, b,
+            StringComparison.OrdinalIgnoreCase))
+            Console.WriteLine("Equal");
+        else
+            Console.WriteLine("Not Equal");
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 10. Find the Length of a String
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter string: ");
+        string s = Console.ReadLine();
+
+        Console.WriteLine("Length = " + s.Length);
+        Console.ReadLine();
+    }
+}
+```
+
+## 11. Extract a Substring
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter string: ");
+        string s = Console.ReadLine();
+
+        Console.Write("Enter starting index: ");
+        int start = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter length: ");
+        int len = int.Parse(Console.ReadLine());
+
+        if (start >= 0 && len >= 0 &&
+            start <= s.Length && len <= s.Length - start)
+            Console.WriteLine(s.Substring(start, len));
+        else
+            Console.WriteLine("Invalid index or length");
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 12. Check Whether a Word Exists in a Sentence
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter sentence: ");
+        string s = Console.ReadLine();
+
+        Console.Write("Enter word to search: ");
+        string word = Console.ReadLine();
+
+        if (s.IndexOf(word,
+            StringComparison.OrdinalIgnoreCase) >= 0)
+            Console.WriteLine("Word found");
+        else
+            Console.WriteLine("Word not found");
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 13. Sort Characters in a String
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter string: ");
+        string s = Console.ReadLine();
+
+        char[] ch = s.ToCharArray();
+        Array.Sort(ch);
+
+        Console.WriteLine("Sorted = " + new string(ch));
+        Console.ReadLine();
+    }
+}
+```
+
+## 14. Check Whether Two Strings Are Anagrams
+
+Example: `listen` and `silent`.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter first string: ");
+        string a = Console.ReadLine().Replace(" ", "").ToLower();
+
+        Console.Write("Enter second string: ");
+        string b = Console.ReadLine().Replace(" ", "").ToLower();
+
+        char[] x = a.ToCharArray();
+        char[] y = b.ToCharArray();
+
+        Array.Sort(x);
+        Array.Sort(y);
+
+        if (new string(x) == new string(y))
+            Console.WriteLine("Anagrams");
+        else
+            Console.WriteLine("Not Anagrams");
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 15. Reverse Each Word in a Sentence
+
+Example: `Hello World` → `olleH dlroW`
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter sentence: ");
+        string s = Console.ReadLine();
+
+        string[] words = s.Split(' ');
+
+        for (int i = 0; i < words.Length; i++)
+        {
+            char[] ch = words[i].ToCharArray();
+            Array.Reverse(ch);
+            words[i] = new string(ch);
+        }
+
+        Console.WriteLine(string.Join(" ", words));
+        Console.ReadLine();
+    }
+}
+```
+
+## Quick revision table
+
+| Method / property | Purpose                                   |
+| ----------------- | ----------------------------------------- |
+| `Length`          | Finds string length                       |
+| `ToUpper()`       | Converts to uppercase                     |
+| `ToLower()`       | Converts to lowercase                     |
+| `Substring()`     | Extracts part of a string                 |
+| `Replace()`       | Replaces text                             |
+| `Split()`         | Separates a string into parts             |
+| `IndexOf()`       | Finds text or a character                 |
+| `Trim()`          | Removes spaces from the beginning and end |
+| `Array.Sort()`    | Sorts characters                          |
+| `Array.Reverse()` | Reverses an array                         |
+| `string.Join()`   | Joins strings together                    |
+| `ToCharArray()`   | Converts a string into a character array  |
+
+Exam tip: Prioritise palindrome, reverse string, vowels and consonants, word count, anagram, substring, and character occurrence. These cover both loops and built-in string methods.
