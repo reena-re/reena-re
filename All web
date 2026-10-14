@@ -1,0 +1,157 @@
+Brooo 😭❤️ we'll put everything in ONE ASP.NET Web Forms program. Only one page, one small C# file, and one XML file for AdRotator.
+
+It includes TextBox, RadioButton, DropDownList, Number input, AdRotator, Calendar, and validation controls.
+
+## Step 1: Create the project
+
+Create an ASP.NET Web Application (.NET Framework) using the Web Forms template. Name it `WebControlsDemo`.
+
+## Step 2: `Default.aspx`
+
+Replace the page code with this:
+
+```
+
+<%@ Page Language="C#" AutoEventWireup="true"
+    CodeBehind="Default.aspx.cs"
+    Inherits="WebControlsDemo.Default" %>
+
+<!DOCTYPE html>
+<html>
+<body>
+<form id="form1" runat="server">
+
+    <h2>Simple Web Controls</h2>
+
+    Name:
+    <asp:TextBox ID="txtName" runat="server" />
+    <asp:RequiredFieldValidator ID="v1" runat="server"
+        ControlToValidate="txtName"
+        ErrorMessage="Enter name"
+        ForeColor="Red" />
+    <br /><br />
+
+    Age:
+    <asp:TextBox ID="txtAge" runat="server" TextMode="Number" />
+    <asp:RequiredFieldValidator ID="v2" runat="server"
+        ControlToValidate="txtAge"
+        ErrorMessage="Enter age"
+        ForeColor="Red" />
+    <asp:RangeValidator ID="v3" runat="server"
+        ControlToValidate="txtAge"
+        Type="Integer" MinimumValue="1" MaximumValue="100"
+        ErrorMessage="Age must be 1 to 100"
+        ForeColor="Red" />
+    <br /><br />
+
+    Gender:
+    <asp:RadioButtonList ID="rblGender" runat="server"
+        RepeatDirection="Horizontal">
+        <asp:ListItem>Male</asp:ListItem>
+        <asp:ListItem>Female</asp:ListItem>
+    </asp:RadioButtonList>
+
+    Department:
+    <asp:DropDownList ID="ddlDept" runat="server">
+        <asp:ListItem Text="--Select--" Value="" />
+        <asp:ListItem>CSE</asp:ListItem>
+        <asp:ListItem>IT</asp:ListItem>
+        <asp:ListItem>ECE</asp:ListItem>
+    </asp:DropDownList>
+
+    <asp:RequiredFieldValidator ID="v4" runat="server"
+        ControlToValidate="ddlDept" InitialValue=""
+        ErrorMessage="Select department"
+        ForeColor="Red" />
+    <br /><br />
+
+    <h3>AdRotator Control</h3>
+    <asp:AdRotator ID="AdRotator1" runat="server"
+        AdvertisementFile="~/Ads.xml"
+        Width="300px" Height="100px" />
+
+    <h3>Calendar Control</h3>
+    <asp:Calendar ID="calDate" runat="server" />
+
+    <br />
+
+    <asp:Button ID="btnSubmit" runat="server"
+        Text="Submit" OnClick="btnSubmit_Click" />
+
+    <br /><br />
+    <asp:Label ID="lblResult" runat="server" />
+
+</form>
+</body>
+</html>
+
+```
+
+## Step 3: `Default.aspx.cs`
+
+Right-click `Default.aspx` → View Code, and paste this:
+
+```
+
+using System;
+
+namespace WebControlsDemo
+{
+    public partial class Default : System.Web.UI.Page
+    {
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                string date = calDate.SelectedDate == DateTime.MinValue
+                    ? "Not selected"
+                    : calDate.SelectedDate.ToShortDateString();
+
+                lblResult.Text =
+                    "Name: " + Server.HtmlEncode(txtName.Text) +
+                    "<br/>Age: " + Server.HtmlEncode(txtAge.Text) +
+                    "<br/>Gender: " + Server.HtmlEncode(rblGender.SelectedValue) +
+                    "<br/>Department: " + Server.HtmlEncode(ddlDept.SelectedValue) +
+                    "<br/>Date: " + date;
+            }
+        }
+    }
+}
+
+```
+
+## Step 4: Create `Ads.xml`
+
+Right-click the project → Add → New Item → XML File. Name it `Ads.xml`.
+
+Paste:
+
+```
+
+<Advertisements>
+    <Ad>
+        <ImageUrl>~/Images/ad1.jpg</ImageUrl>
+        <NavigateUrl>https://example.com</NavigateUrl>
+        <AlternateText>Advertisement One</AlternateText>
+        <Impressions>50</Impressions>
+    </Ad>
+
+    <Ad>
+        <ImageUrl>~/Images/ad2.jpg</ImageUrl>
+        <NavigateUrl>https://example.com</NavigateUrl>
+        <AlternateText>Advertisement Two</AlternateText>
+        <Impressions>50</Impressions>
+    </Ad>
+</Advertisements>
+
+```
+
+Important: Create an `Images` folder in your project. Add two image files named `ad1.jpg` and `ad2.jpg`. These are required for AdRotator to display pictures.
+
+## Step 5: Run
+
+Right-click `Default.aspx` → Set as Start Page → press Ctrl + F5.
+
+You can enter your name and age, choose a gender and department, view the advertisement, select a calendar date, and press Submit. The validation controls show errors for a missing name, missing age, invalid age, or unselected department.
+
+If your actual project namespace is not `WebControlsDemo`, replace it in both the ASPX `Inherits` value and the C# namespace to match your project.
