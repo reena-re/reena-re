@@ -1,119 +1,79 @@
-Bro 👍 Let's make a very simple ASP.NET Web Forms CRUD program using C# + SQL Server for Visual Studio 2026 and SSMS 2022.
-
-We'll use two pages:
-
-- Page 1 — `Default.aspx`: Enter student details and click Add, Update, Delete, or View Records.
-- Page 2 — `Display.aspx`: Displays all student records in a GridView, with Edit and Delete buttons.
-
-We'll use a SQL Server database to store the data, so the records remain saved even after closing the application.
-
-## 1. Create the database in SSMS 2022
-
-Open SSMS, connect to your SQL Server, click New Query, and execute this code.
-
-```
+1. SQL — Run in SSMS 2022
+This resets the practice table to match the code below. It deletes the existing Student table and its data, so only run it if you don't need those records.
 CREATE DATABASE StudentDB;
-GO
 
+
+Run that only if StudentDB doesn't already exist. Then run:
 USE StudentDB;
-GO
+
+IF OBJECT_ID('Student', 'U') IS NOT NULL
+    DROP TABLE Student;
 
 CREATE TABLE Student
 (
     ID INT PRIMARY KEY,
-    Name VARCHAR(50),
-    Department VARCHAR(50)
+    Name VARCHAR(50)
 );
-GO
-```
-
-## 2. Create the Visual Studio project
-
-1. Open Visual Studio 2026.
-2. Select Create a new project.
-3. Choose ASP.NET Web Application (.NET Framework).
-4. Name it `StudentCRUD`.
-5. Select the Web Forms template.
-6. Add two Web Forms named `Default.aspx` and `Display.aspx`.
-
-If the .NET Framework Web Forms template is missing, install the ASP.NET and web development workload and the required .NET Framework targeting pack.
-
-## 3. Add the connection string
-
-Open `Web.config` and add this inside the existing `<configuration>` tag, before `</configuration>`.
-
-Use the server name you see in SSMS. The example below assumes `.\SQLEXPRESS`.
-
-```
+2. Web.config
+Add this inside the existing <configuration> element. If a connectionStrings section already exists, add the connection inside it instead of creating a duplicate section.
 <connectionStrings>
   <add name="con"
        connectionString="Data Source=.\SQLEXPRESS;Initial Catalog=StudentDB;Integrated Security=True"
-       providerName="System.Data.SqlClient" />
+       providerName="System.Data.SqlClient"/>
 </connectionStrings>
+
+Brooo okay 😭❤️ Keep your old database and table with ID, Name, and Department. Don't delete or recreate anything!
+
+Just use this updated code with all three fields.
+
+## 1. `Default.aspx` — Input page
+
 ```
-
-If your SSMS server is `localhost` or a named SQL Server instance, replace `.\SQLEXPRESS` with your actual server name.
-
-## 4. Page 1 — `Default.aspx`
-
-This page accepts student data and performs Add, Update, and Delete operations. The View button takes you to the second page.
-
-```
-
 <%@ Page Language="C#" AutoEventWireup="true"
     CodeBehind="Default.aspx.cs"
     Inherits="StudentCRUD.Default" %>
 
-<!DOCTYPE html>
 <html>
-<head runat="server">
-    <title>Student CRUD</title>
-</head>
 <body>
 <form id="form1" runat="server">
 
     <h2>Student Details</h2>
 
-    Student ID:
-    <asp:TextBox ID="txtID" runat="server" />
+    ID:
+    <asp:TextBox ID="t1" runat="server" />
     <br /><br />
 
-    Student Name:
-    <asp:TextBox ID="txtName" runat="server" />
+    Name:
+    <asp:TextBox ID="t2" runat="server" />
     <br /><br />
 
     Department:
-    <asp:TextBox ID="txtDept" runat="server" />
+    <asp:TextBox ID="t3" runat="server" />
     <br /><br />
 
-    <asp:Button ID="btnAdd" runat="server"
-        Text="Add" OnClick="btnAdd_Click" />
+    <asp:Button ID="b1" runat="server"
+        Text="Add" OnClick="Add" />
 
-    <asp:Button ID="btnUpdate" runat="server"
-        Text="Update" OnClick="btnUpdate_Click" />
+    <asp:Button ID="b2" runat="server"
+        Text="Update" OnClick="Update" />
 
-    <asp:Button ID="btnDelete" runat="server"
-        Text="Delete" OnClick="btnDelete_Click" />
+    <asp:Button ID="b3" runat="server"
+        Text="Delete" OnClick="Delete" />
 
-    <asp:Button ID="btnView" runat="server"
-        Text="View Records" OnClick="btnView_Click" />
+    <asp:Button ID="b4" runat="server"
+        Text="View Records" OnClick="View" />
 
     <br /><br />
-
     <asp:Label ID="lblMsg" runat="server" />
 
 </form>
 </body>
 </html>
-
 ```
 
-## 5. Page 1 — `Default.aspx.cs`
-
-Right-click `Default.aspx`, select View Code, and add the following code.
+## 2. `Default.aspx.cs` — CRUD code
 
 ```
-
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -125,34 +85,36 @@ namespace StudentCRUD
         string cs = ConfigurationManager
             .ConnectionStrings["con"].ConnectionString;
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+        protected void Add(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string q = "INSERT INTO Student VALUES (@ID,@Name,@Dept)";
+                string q = "INSERT INTO Student (ID, Name, Department) " +
+                           "VALUES (@ID, @Name, @Dept)";
 
                 SqlCommand cmd = new SqlCommand(q, con);
-                cmd.Parameters.AddWithValue("@ID", txtID.Text);
-                cmd.Parameters.AddWithValue("@Name", txtName.Text);
-                cmd.Parameters.AddWithValue("@Dept", txtDept.Text);
+                cmd.Parameters.AddWithValue("@ID", int.Parse(t1.Text));
+                cmd.Parameters.AddWithValue("@Name", t2.Text);
+                cmd.Parameters.AddWithValue("@Dept", t3.Text);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
 
-            lblMsg.Text = "Record Added Successfully!";
+            lblMsg.Text = "Record Added!";
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        protected void Update(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string q = "UPDATE Student SET Name=@Name, Department=@Dept WHERE ID=@ID";
+                string q = "UPDATE Student SET Name=@Name, " +
+                           "Department=@Dept WHERE ID=@ID";
 
                 SqlCommand cmd = new SqlCommand(q, con);
-                cmd.Parameters.AddWithValue("@ID", txtID.Text);
-                cmd.Parameters.AddWithValue("@Name", txtName.Text);
-                cmd.Parameters.AddWithValue("@Dept", txtDept.Text);
+                cmd.Parameters.AddWithValue("@ID", int.Parse(t1.Text));
+                cmd.Parameters.AddWithValue("@Name", t2.Text);
+                cmd.Parameters.AddWithValue("@Dept", t3.Text);
 
                 con.Open();
                 int n = cmd.ExecuteNonQuery();
@@ -161,14 +123,14 @@ namespace StudentCRUD
             }
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void Delete(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
                 string q = "DELETE FROM Student WHERE ID=@ID";
 
                 SqlCommand cmd = new SqlCommand(q, con);
-                cmd.Parameters.AddWithValue("@ID", txtID.Text);
+                cmd.Parameters.AddWithValue("@ID", int.Parse(t1.Text));
 
                 con.Open();
                 int n = cmd.ExecuteNonQuery();
@@ -177,97 +139,50 @@ namespace StudentCRUD
             }
         }
 
-        protected void btnView_Click(object sender, EventArgs e)
+        protected void View(object sender, EventArgs e)
         {
             Response.Redirect("Display.aspx");
         }
     }
 }
-
 ```
 
-## 6. Page 2 — `Display.aspx`
-
-This is the output page. The GridView displays all records and provides Edit and Delete buttons.
+## 3. `Display.aspx`
 
 ```
-
 <%@ Page Language="C#" AutoEventWireup="true"
     CodeBehind="Display.aspx.cs"
     Inherits="StudentCRUD.Display" %>
 
-<!DOCTYPE html>
 <html>
-<head runat="server">
-    <title>Display Students</title>
-</head>
 <body>
 <form id="form1" runat="server">
 
     <h2>Student Records</h2>
 
-    <asp:GridView ID="GridView1" runat="server"
-        AutoGenerateColumns="False"
-        DataKeyNames="ID"
-        AutoGenerateEditButton="True"
-        AutoGenerateDeleteButton="True"
-        OnRowEditing="GridView1_RowEditing"
-        OnRowUpdating="GridView1_RowUpdating"
-        OnRowCancelingEdit="GridView1_RowCancelingEdit"
-        OnRowDeleting="GridView1_RowDeleting"
-        BorderWidth="1">
-
-        <Columns>
-            <asp:BoundField DataField="ID"
-                HeaderText="Student ID" ReadOnly="True" />
-
-            <asp:BoundField DataField="Name"
-                HeaderText="Student Name" />
-
-            <asp:BoundField DataField="Department"
-                HeaderText="Department" />
-        </Columns>
-
-    </asp:GridView>
-
-    <br />
-
-    <asp:Button ID="btnBack" runat="server"
-        Text="Back to Entry Page"
-        OnClick="btnBack_Click" />
+    <asp:GridView ID="g1" runat="server" />
 
 </form>
 </body>
 </html>
-
 ```
 
-## 7. Page 2 — `Display.aspx.cs`
+## 4. `Display.aspx.cs`
 
 ```
-
 using System;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI.WebControls;
+using System.Configuration;
 
 namespace StudentCRUD
 {
     public partial class Display : System.Web.UI.Page
     {
-        string cs = ConfigurationManager
-            .ConnectionStrings["con"].ConnectionString;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-                BindGrid();
-        }
-
-        void BindGrid()
-        {
-            using (SqlConnection con = new SqlConnection(cs))
+            using (SqlConnection con = new SqlConnection(
+                ConfigurationManager.ConnectionStrings["con"].ConnectionString))
             {
                 SqlDataAdapter da = new SqlDataAdapter(
                     "SELECT * FROM Student", con);
@@ -275,105 +190,20 @@ namespace StudentCRUD
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
-                GridView1.DataSource = dt;
-                GridView1.DataBind();
+                g1.DataSource = dt;
+                g1.DataBind();
             }
-        }
-
-        protected void GridView1_RowEditing(
-            object sender, GridViewEditEventArgs e)
-        {
-            GridView1.EditIndex = e.NewEditIndex;
-            BindGrid();
-        }
-
-        protected void GridView1_RowCancelingEdit(
-            object sender, GridViewCancelEditEventArgs e)
-        {
-            GridView1.EditIndex = -1;
-            BindGrid();
-        }
-
-        protected void GridView1_RowUpdating(
-            object sender, GridViewUpdateEventArgs e)
-        {
-            int id = Convert.ToInt32(
-                GridView1.DataKeys[e.RowIndex].Value);
-
-            GridViewRow row = GridView1.Rows[e.RowIndex];
-
-            string name = ((TextBox)row.Cells[2].Controls[0]).Text;
-            string dept = ((TextBox)row.Cells[3].Controls[0]).Text;
-
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string q = "UPDATE Student SET Name=@Name, " +
-                           "Department=@Dept WHERE ID=@ID";
-
-                SqlCommand cmd = new SqlCommand(q, con);
-                cmd.Parameters.AddWithValue("@ID", id);
-                cmd.Parameters.AddWithValue("@Name", name);
-                cmd.Parameters.AddWithValue("@Dept", dept);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-
-            GridView1.EditIndex = -1;
-            BindGrid();
-        }
-
-        protected void GridView1_RowDeleting(
-            object sender, GridViewDeleteEventArgs e)
-        {
-            int id = Convert.ToInt32(
-                GridView1.DataKeys[e.RowIndex].Value);
-
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "DELETE FROM Student WHERE ID=@ID", con);
-
-                cmd.Parameters.AddWithValue("@ID", id);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-
-            BindGrid();
-        }
-
-        protected void btnBack_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Default.aspx");
         }
     }
 }
-
 ```
 
-## 8. Run the program
+That's it, bro! Your existing SQL table should contain these three columns:
 
-1. In Solution Explorer, right-click `Default.aspx`.
-2. Select Set as Start Page.
-3. Press Ctrl + F5.
-4. Enter ID, Name, and Department.
-5. Click Add.
-6. Click View Records to open the second page.
-7. Use the GridView's Edit, Update, Cancel, and Delete controls to manage the records.
+| ID | Name | Department |
+| -- | ---- | ---------- |
+| 1  | Anu  | CSE        |
 
-## How the program works
+Your first page accepts all three values, and clicking View Records takes you to the second page, where the GridView displays all three columns.
 
-Default.aspx
-
-Enter student data · Add / Update / Delete
-
-SQL Server — StudentDB
-
-Stores student records permanently
-
-Display.aspx
-
-GridView shows records · Edit / Delete
-
-Important: The code assumes your project's namespace is `StudentCRUD` and your SQL Server connection string is correct. If Visual Studio generated a different namespace, change the namespace and both `Inherits` values to match it.
+Keep your existing `Web.config` connection string, provided it already points to your correct database.
