@@ -1,0 +1,447 @@
+Brooo 😭👍 let's do Arrays and Jagged Arrays with simple college practical questions — student marks, totals, highest marks, and so on. All programs are for C# Console Application in Visual Studio 2015, and values are entered by the user.
+
+# Part 1: One-Dimensional Arrays — 5 Programs
+
+## 1. Student Marks and Total
+
+Question: Write a C# program to read marks of students and calculate the total.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of subjects: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[] marks = new int[n];
+        int total = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter marks: ");
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+            total += marks[i];
+        }
+
+        Console.WriteLine("Total Marks = " + total);
+        Console.ReadLine();
+    }
+}
+```
+
+## 2. Find Highest Mark
+
+Question: Write a program to find the highest mark in an array.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        if (n <= 0)
+        {
+            Console.WriteLine("Invalid size");
+            Console.ReadLine();
+            return;
+        }
+
+        int[] marks = new int[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter mark: ");
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        int max = marks[0];
+
+        for (int i = 1; i < n; i++)
+        {
+            if (marks[i] > max)
+                max = marks[i];
+        }
+
+        Console.WriteLine("Highest Mark = " + max);
+        Console.ReadLine();
+    }
+}
+```
+
+## 3. Find Average Marks
+
+Question: Write a program to calculate the average of marks stored in an array.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of subjects: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        if (n <= 0)
+        {
+            Console.WriteLine("Invalid size");
+            Console.ReadLine();
+            return;
+        }
+
+        int[] marks = new int[n];
+        int total = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+            total += marks[i];
+        }
+
+        double average = (double)total / n;
+
+        Console.WriteLine("Average = " + average);
+        Console.ReadLine();
+    }
+}
+```
+
+## 4. Sort Array in Ascending Order
+
+Question: Write a program to sort numbers in ascending order.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter array size: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[] a = new int[n];
+
+        for (int i = 0; i < n; i++)
+            a[i] = Convert.ToInt32(Console.ReadLine());
+
+        Array.Sort(a);
+
+        Console.WriteLine("Ascending Order:");
+
+        for (int i = 0; i < n; i++)
+            Console.WriteLine(a[i]);
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 5. Search for a Student's Mark
+
+Question: Write a program to search for a number in an array.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter array size: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[] a = new int[n];
+
+        for (int i = 0; i < n; i++)
+            a[i] = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Enter number to search: ");
+        int key = Convert.ToInt32(Console.ReadLine());
+
+        bool found = false;
+
+        for (int i = 0; i < n; i++)
+        {
+            if (a[i] == key)
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (found)
+            Console.WriteLine("Number Found");
+        else
+            Console.WriteLine("Number Not Found");
+
+        Console.ReadLine();
+    }
+}
+```
+
+# Part 2: Jagged Arrays — 5 Programs
+
+Bro, remember this definition:
+
+A jagged array is an array of arrays. Each inner array can have a different number of elements.
+
+For example, different students can have different numbers of marks or subjects recorded.
+
+## 1. Student Marks Using a Jagged Array
+
+Question: Write a program to store and display marks for students, where each student can have a different number of subjects.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[][] marks = new int[n][];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter number of subjects for student " + (i + 1) + ": ");
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            marks[i] = new int[m];
+
+            for (int j = 0; j < m; j++)
+            {
+                Console.Write("Enter mark: ");
+                marks[i][j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.WriteLine("Student " + (i + 1) + ":");
+
+            for (int j = 0; j < marks[i].Length; j++)
+                Console.WriteLine(marks[i][j]);
+        }
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 2. Total Marks of Each Student
+
+Question: Use a jagged array to calculate the total marks of each student.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[][] marks = new int[n][];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter number of subjects: ");
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            marks[i] = new int[m];
+
+            for (int j = 0; j < m; j++)
+            {
+                Console.Write("Enter mark: ");
+                marks[i][j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            int total = 0;
+
+            for (int j = 0; j < marks[i].Length; j++)
+                total += marks[i][j];
+
+            Console.WriteLine("Student " + (i + 1) +
+                              " Total = " + total);
+        }
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 3. Find Highest Mark of Each Student
+
+Question: Write a jagged array program to find the highest mark of each student.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[][] marks = new int[n][];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter number of subjects: ");
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            marks[i] = new int[m];
+
+            for (int j = 0; j < m; j++)
+                marks[i][j] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            if (marks[i].Length == 0)
+            {
+                Console.WriteLine("Student " + (i + 1) + ": No marks");
+                continue;
+            }
+
+            int max = marks[i][0];
+
+            for (int j = 1; j < marks[i].Length; j++)
+            {
+                if (marks[i][j] > max)
+                    max = marks[i][j];
+            }
+
+            Console.WriteLine("Student " + (i + 1) +
+                              " Highest Mark = " + max);
+        }
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 4. Store Different Numbers for Different Groups
+
+Question: Write a program to store numbers in groups using a jagged array and display them.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of groups: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[][] a = new int[n][];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter elements in group " + (i + 1) + ": ");
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            a[i] = new int[m];
+
+            for (int j = 0; j < m; j++)
+                a[i][j] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        Console.WriteLine("Jagged Array:");
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < a[i].Length; j++)
+                Console.Write(a[i][j] + " ");
+
+            Console.WriteLine();
+        }
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 5. Average Marks of Each Student
+
+Question: Write a program to calculate the average marks of each student using a jagged array.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[][] marks = new int[n][];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter number of subjects: ");
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            marks[i] = new int[m];
+
+            for (int j = 0; j < m; j++)
+                marks[i][j] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            if (marks[i].Length == 0)
+            {
+                Console.WriteLine("Student " + (i + 1) + ": No marks");
+                continue;
+            }
+
+            int total = 0;
+
+            for (int j = 0; j < marks[i].Length; j++)
+                total += marks[i][j];
+
+            double average = (double)total / marks[i].Length;
+
+            Console.WriteLine("Student " + (i + 1) +
+                              " Average = " + average);
+        }
+
+        Console.ReadLine();
+    }
+}
+```
+
+## Important exam differences
+
+| Normal array                                                        | Jagged array                                 |
+| ------------------------------------------------------------------- | -------------------------------------------- |
+| Stores elements of one dimension or a fixed rectangular structure   | Stores an array of arrays                    |
+| Example: `int[] a = new int[5];`                                    | Example: `int[][] a = new int[3][];`         |
+| Access using `a[i]`                                                 | Access using `a[i][j]`                       |
+| A two-dimensional rectangular array has equal column counts per row | Each inner array can have a different length |
+
+Easy trick to remember, bro:
+
+- `int[]` → one-dimensional array
+- `int[,]` → rectangular two-dimensional array
+- `int[][]` → jagged array
+
+For your exam, practise Array Total, Array Sorting, Jagged Student Marks, and Jagged Total Marks first. These cover the main patterns you're likely to reuse in similar practical questions.
