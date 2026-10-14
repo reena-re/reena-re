@@ -1,0 +1,568 @@
+# 1. Student Details Using Delegate
+
+Question: Write a C# program to display student details using a delegate.
+
+```
+using System;
+
+delegate void StudentDelegate();
+
+class Student
+{
+    public void Display()
+    {
+        Console.Write("Enter Student ID: ");
+        string id = Console.ReadLine();
+
+        Console.Write("Enter Student Name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter Department: ");
+        string dept = Console.ReadLine();
+
+        Console.WriteLine("\nStudent Details");
+        Console.WriteLine("ID: " + id);
+        Console.WriteLine("Name: " + name);
+        Console.WriteLine("Department: " + dept);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Student s = new Student();
+
+        StudentDelegate d = s.Display;
+        d();
+
+        Console.ReadLine();
+    }
+}
+```
+
+Concept: The delegate calls the `Display()` method of the `Student` class.
+
+# 2. Student Marks and Result Using Delegate
+
+Question: Write a program to calculate total marks and display the result using a delegate.
+
+```
+using System;
+
+delegate int MarksDelegate(int a, int b, int c);
+
+class Student
+{
+    public int Total(int a, int b, int c)
+    {
+        return a + b + c;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter Student Name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter three subject marks: ");
+        int a = Convert.ToInt32(Console.ReadLine());
+        int b = Convert.ToInt32(Console.ReadLine());
+        int c = Convert.ToInt32(Console.ReadLine());
+
+        Student s = new Student();
+
+        MarksDelegate d = s.Total;
+        int total = d(a, b, c);
+
+        Console.WriteLine("Student: " + name);
+        Console.WriteLine("Total Marks: " + total);
+        Console.WriteLine("Average: " + total / 3.0);
+
+        Console.ReadLine();
+    }
+}
+```
+
+# 3. Employee Salary Using Delegate
+
+Question: Write a program to calculate the annual salary of an employee using a delegate.
+
+```
+using System;
+
+delegate double SalaryDelegate(double salary);
+
+class Employee
+{
+    public double AnnualSalary(double salary)
+    {
+        return salary * 12;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter Employee Name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter Monthly Salary: ");
+        double salary = Convert.ToDouble(Console.ReadLine());
+
+        Employee e = new Employee();
+
+        SalaryDelegate d = e.AnnualSalary;
+
+        Console.WriteLine("Employee: " + name);
+        Console.WriteLine("Annual Salary: " + d(salary));
+
+        Console.ReadLine();
+    }
+}
+```
+
+# 4. Student Grade Using Delegate
+
+Question: Write a program to display a student's grade based on marks using a delegate.
+
+```
+using System;
+
+delegate string GradeDelegate(int marks);
+
+class Student
+{
+    public string Grade(int marks)
+    {
+        if (marks >= 90)
+            return "A Grade";
+        else if (marks >= 75)
+            return "B Grade";
+        else if (marks >= 50)
+            return "C Grade";
+        else
+            return "Fail";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter Student Name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter Marks: ");
+        int marks = Convert.ToInt32(Console.ReadLine());
+
+        Student s = new Student();
+
+        GradeDelegate d = s.Grade;
+
+        Console.WriteLine("Student: " + name);
+        Console.WriteLine("Grade: " + d(marks));
+
+        Console.ReadLine();
+    }
+}
+```
+
+# 5. Student Fee Calculation Using Delegate
+
+Question: Write a program to calculate the remaining college fee using a delegate.
+
+```
+using System;
+
+delegate double FeeDelegate(double total, double paid);
+
+class Student
+{
+    public double Balance(double total, double paid)
+    {
+        return total - paid;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter Student Name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter Total Fee: ");
+        double total = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter Fee Already Paid: ");
+        double paid = Convert.ToDouble(Console.ReadLine());
+
+        Student s = new Student();
+
+        FeeDelegate d = s.Balance;
+
+        Console.WriteLine("Student: " + name);
+        Console.WriteLine("Remaining Fee: " + d(total, paid));
+
+        Console.ReadLine();
+    }
+}
+```
+
+
+
+LINQ is used to filter, sort, and search data. Remember to include `using System.Linq;`.
+
+## 1. Student Details — Display Students Who Passed
+
+Question: Write a C# program using LINQ to display students who scored 50 or above.
+
+```
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        string[] names = new string[n];
+        int[] marks = new int[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter student name: ");
+            names[i] = Console.ReadLine();
+
+            Console.Write("Enter marks: ");
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        var result = from i in Enumerable.Range(0, n)
+                     where marks[i] >= 50
+                     select names[i];
+
+        Console.WriteLine("Students who passed:");
+
+        foreach (string name in result)
+            Console.WriteLine(name);
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 2. Student Marks — Sort Marks in Ascending Order
+
+Question: Write a LINQ program to arrange student marks in ascending order.
+
+```
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[] marks = new int[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter marks: ");
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        var result = from m in marks
+                     orderby m
+                     select m;
+
+        Console.WriteLine("Sorted Marks:");
+
+        foreach (int m in result)
+            Console.WriteLine(m);
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 3. Student Marks — Find the Highest Mark
+
+Question: Write a LINQ program to find the highest mark entered.
+
+```
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        if (n <= 0)
+        {
+            Console.WriteLine("Enter a valid count.");
+            Console.ReadLine();
+            return;
+        }
+
+        int[] marks = new int[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter marks: ");
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        Console.WriteLine("Highest Mark = " + marks.Max());
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 4. Student Marks — Find the Average
+
+Question: Write a LINQ program to calculate the average marks.
+
+```
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        if (n <= 0)
+        {
+            Console.WriteLine("Enter a valid count.");
+            Console.ReadLine();
+            return;
+        }
+
+        int[] marks = new int[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter marks: ");
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        Console.WriteLine("Average = " + marks.Average());
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 5. Employee Salary — Display Employees Earning Above a Salary
+
+Question: Write a LINQ program to display salaries greater than a user-entered amount.
+
+```
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of employees: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        double[] salary = new double[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter salary: ");
+            salary[i] = Convert.ToDouble(Console.ReadLine());
+        }
+
+        Console.Write("Enter salary limit: ");
+        double limit = Convert.ToDouble(Console.ReadLine());
+
+        var result = from s in salary
+                     where s > limit
+                     select s;
+
+        Console.WriteLine("Salaries above the limit:");
+
+        foreach (double s in result)
+            Console.WriteLine(s);
+
+        Console.ReadLine();
+    }
+}
+```
+
+# Part 2: Lambda Expressions — 5 college practical programs
+
+A lambda expression uses the `=>` operator. It is commonly used with LINQ to filter or process records.
+
+## 1. Student Marks — Display Passed Students' Marks
+
+Question: Write a C# program using a lambda expression to display marks greater than or equal to 50.
+
+```
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[] marks = new int[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write("Enter marks: ");
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        var result = marks.Where(x => x >= 50);
+
+        foreach (int m in result)
+            Console.WriteLine(m);
+
+        Console.ReadLine();
+    }
+}
+```
+
+Important line: `marks.Where(x => x >= 50)`
+
+## 2. Student Marks — Sort in Ascending Order
+
+Question: Write a lambda-based LINQ program to sort student marks.
+
+```
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int[] marks = new int[n];
+
+        for (int i = 0; i < n; i++)
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+
+        var result = marks.OrderBy(x => x);
+
+        foreach (int m in result)
+            Console.WriteLine(m);
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 3. Student Marks — Find the Highest Mark
+
+Question: Use a lambda expression with LINQ to find the highest mark.
+
+```
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter number of students: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        if (n <= 0)
+        {
+            Console.WriteLine("Enter a valid count.");
+            Console.ReadLine();
+            return;
+        }
+
+        int[] marks = new int[n];
+
+        for (int i = 0; i < n; i++)
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("Highest Mark = " + marks.Max(x => x));
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 4. Employee Salary — Calculate Annual Salary
+
+Question: Use a lambda expression to calculate annual salary from monthly salary.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter employee name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter monthly salary: ");
+        double salary = Convert.ToDouble(Console.ReadLine());
+
+        Func<double, double> annual = x => x * 12;
+
+        Console.WriteLine("Employee: " + name);
+        Console.WriteLine("Annual Salary = " + annual(salary));
+
+        Console.ReadLine();
+    }
+}
+```
+
+## 5. Student Grade — Check Pass or Fail
+
+Question: Use a lambda expression to determine whether a student passed or failed.
+
+```
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter student name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter marks: ");
+        int marks = Convert.ToInt32(Console.ReadLine());
+
+        Func<int, string> result =
+            x => x >= 50 ? "Pass" : "Fail";
+
+        Console.WriteLine("Student: " + name);
+        Console.WriteLine("Result: " + result(marks));
+
+        Console.ReadLine();
+    }
+}
+```
