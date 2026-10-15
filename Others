@@ -1,0 +1,384 @@
+Brooo 😭🔥 These are perfect for your C# practical exam! Let's learn some simple formula-based programs with user input, easy formulas, and complete code you can practise in Visual Studio.
+
+# 1. BMI Calculation
+
+BMI means Body Mass Index. It checks body weight relative to height.
+
+Formula:
+
+\\[ BMI=\frac{\text{Weight in kg}}{(\text{Height in metres})^2} \\]
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter weight in kg: ");
+        double weight = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter height in metres: ");
+        double height = Convert.ToDouble(Console.ReadLine());
+
+        double bmi = weight / (height * height);
+
+        Console.WriteLine("BMI = " + bmi.ToString("F2"));
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+Example: Weight = 60 kg, height = 1.65 m → BMI ≈ 22.04.
+
+# 2. Salary Calculation — Basic, DA, HRA and Gross Salary
+
+In salary problems, the question usually gives DA and HRA as percentages of basic salary.
+
+Formulas:
+
+- DA = Basic Salary × DA% / 100
+- HRA = Basic Salary × HRA% / 100
+- Gross Salary = Basic Salary + DA + HRA
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter basic salary: ");
+        double basic = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter DA percentage: ");
+        double daPercent = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter HRA percentage: ");
+        double hraPercent = Convert.ToDouble(Console.ReadLine());
+
+        double da = basic * daPercent / 100;
+        double hra = basic * hraPercent / 100;
+        double gross = basic + da + hra;
+
+        Console.WriteLine("DA = " + da);
+        Console.WriteLine("HRA = " + hra);
+        Console.WriteLine("Gross Salary = " + gross);
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+Example: Basic = ₹20,000, DA = 10%, HRA = 20%.
+
+- DA = ₹2,000
+- HRA = ₹4,000
+- Gross salary = ₹26,000
+
+Remember: The percentages are entered by the user because they can vary by question.
+
+# 3. Celsius to Fahrenheit
+
+Formula:
+
+\\[ F=\frac{9}{5}C+32 \\]
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter temperature in Celsius: ");
+        double c = Convert.ToDouble(Console.ReadLine());
+
+        double f = (c * 9 / 5) + 32;
+
+        Console.WriteLine("Fahrenheit = " + f);
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+Example: 100°C = 212°F.
+
+# 4. Fahrenheit to Celsius
+
+Formula:
+
+\\[ C=\frac{5}{9}(F-32) \\]
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter temperature in Fahrenheit: ");
+        double f = Convert.ToDouble(Console.ReadLine());
+
+        double c = (f - 32) * 5 / 9;
+
+        Console.WriteLine("Celsius = " + c);
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+Example: 98.6°F = 37°C.
+
+# 5. Simple Interest
+
+Formula:
+
+\\[ SI=\frac{P \times R \times T}{100} \\]
+
+Here, \\(P\\) = principal, \\(R\\) = interest rate per year, and \\(T\\) = time in years.
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter principal amount: ");
+        double p = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter rate of interest: ");
+        double r = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter time in years: ");
+        double t = Convert.ToDouble(Console.ReadLine());
+
+        double si = (p * r * t) / 100;
+
+        Console.WriteLine("Simple Interest = " + si);
+        Console.WriteLine("Total Amount = " + (p + si));
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+# 6. Electricity Bill
+
+For a simple practical question, assume the user enters units consumed and the rate per unit.
+
+Formula:
+
+\\[ \text{Bill}=\text{Units Consumed}\times\text{Rate per Unit} \\]
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter units consumed: ");
+        double units = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter rate per unit: ");
+        double rate = Convert.ToDouble(Console.ReadLine());
+
+        double bill = units * rate;
+
+        Console.WriteLine("Electricity Bill = Rs. " + bill);
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+This is the basic version. Actual electricity bills may include slabs, fixed charges and taxes.
+
+# 7. Number patterns — including jagged patterns
+
+I think by “Jaggered number pattern,” you mean jagged number patterns made using nested loops. These are very common in practical exams.
+
+## Pattern A: Increasing numbers
+
+Output:
+
+```
+1
+12
+123
+1234
+12345
+```
+
+Code:
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            for (int j = 1; j <= i; j++)
+            {
+                Console.Write(j);
+            }
+
+            Console.WriteLine();
+        }
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+## Pattern B: Repeated row numbers
+
+Output:
+
+```
+1
+22
+333
+4444
+55555
+```
+
+Code:
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            for (int j = 1; j <= i; j++)
+            {
+                Console.Write(i);
+            }
+
+            Console.WriteLine();
+        }
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+## Pattern C: Reverse number pattern
+
+Output:
+
+```
+12345
+1234
+123
+12
+1
+```
+
+Code:
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 5; i >= 1; i--)
+        {
+            for (int j = 1; j <= i; j++)
+            {
+                Console.Write(j);
+            }
+
+            Console.WriteLine();
+        }
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+## Pattern D: Continuous number triangle
+
+Output:
+
+```
+1
+23
+456
+78910
+```
+
+Code:
+
+```
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int num = 1;
+
+        for (int i = 1; i <= 4; i++)
+        {
+            for (int j = 1; j <= i; j++)
+            {
+                Console.Write(num);
+                num++;
+            }
+
+            Console.WriteLine();
+        }
+
+        Console.ReadLine();
+    }
+}
+
+```
+
+## The nested-loop trick to remember
+
+| Code                  | Meaning                                     |
+| --------------------- | ------------------------------------------- |
+| `i`                   | Controls the row                            |
+| `j`                   | Controls how many numbers print in each row |
+| `Console.Write()`     | Prints on the same line                     |
+| `Console.WriteLine()` | Moves to the next line                      |
+| `j <= i`              | Prints more numbers in each successive row  |
+
+Exam tip: If the pattern changes row by row, think of a nested `for` loop.
+
+Want to practise next? I can teach you electricity bill with slabs, employee salary with PF and deductions, percentage/grade calculation, area and volume formulas, and 10 more number patterns in the same simple style.
